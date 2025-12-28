@@ -24,7 +24,7 @@ except ImportError:
 
 def setup_page():
     st.set_page_config(
-        page_title="AI 麻將神算",
+        page_title="AI 麻將神算子",
         page_icon="🀄",
         layout="centered",
         initial_sidebar_state="collapsed"
