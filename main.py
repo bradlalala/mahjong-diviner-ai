@@ -85,20 +85,41 @@ def analyze_mahjong(image, api_key):
         model = genai.GenerativeModel('gemini-3-pro-preview')
         
         prompt = """
-        Role: Professional Mahjong Strategist.
-        Task: Analyze the provided Mahjong hand image.
-        1. Identify valid tiles.
-        2. Calculate waiting tiles (Ting Pai) and estimate 'Tai' (Fan).
-        3. Suggest the BEST discard if applicable, or just list waiting tiles.
+        Role: Grandmaster of Taiwanese 16-tile Mahjong (台灣十六張麻將神算子).
         
-        Output: STRICT JSON format ONLY. No markdown.
-        Structure:
+        Task: Analyze the image of the Mahjong hand to provide winning strategies.
+        
+        # CRITICAL RULES (Taiwanese Mahjong):
+        1. Standard hand size is 16 tiles (standing) + 1 drawn tile, or 16 tiles total when waiting.
+        2. Ignore "Flowers" (Season/Plant tiles) for hand completion, but count them for bonus if visible.
+        3. Differentiate visually similar tiles (e.g., One Bamboo 'bird' vs One Circle).
+        4. "White Dragon" (白皮) is a plain white tile with a border.
+        
+        # ANALYSIS STEPS:
+        Step 1 [Identification]: Identify all standing tiles and exposed melds (Chi/Pon/Kang). Count the total tiles to determine if it's the player's turn to discard (17 tiles) or if they are waiting (16 tiles).
+        Step 2 [Efficiency]: Calculate 'Shanten' (moves to win).
+        Step 3 [Strategy]: 
+           - If 17 tiles: Suggest the BEST tile to discard that maximizes "Uke-ire" (number of winning tiles) and "Tai" (Score).
+           - If 16 tiles: Identify what tiles the player is waiting for (Ting Pai).
+        Step 4 [Scoring]: Estimate 'Tai' (Fan) based on standard Taiwan rules (e.g., Ping Hu, All Triplets, Mixed One Suit).
+        
+        # OUTPUT FORMAT:
+        Output STRICTLY in the following JSON structure. Do NOT output markdown code blocks.
+        
         {
             "status": "success",
+            "detected_tiles": ["一萬", "二萬", ...], 
+            "hand_state": "Need to Discard" or "Waiting (Ting Pai)",
             "strategies": [
-                { "tile": "三條", "tai": 3, "types": ["三暗刻"], "comment": "進牌機率高" }
+                {
+                    "tile": "Name of the tile to WAIT FOR (e.g. 三條)",
+                    "discard_suggestion": "If having 17 tiles, discard this tile first (e.g. 北風). If waiting, leave null.",
+                    "tai": 5, 
+                    "types": ["碰碰胡", "三暗刻"], 
+                    "comment": "Analysis of why this is the best strategy (win rate vs score)."
+                }
             ],
-            "analysis": "整體牌型建議 (繁體中文)"
+            "analysis": "A concise, professional summary in Traditional Chinese (繁體中文). Mention if the hand is bad (相公) or good."
         }
         """
         
@@ -123,6 +144,7 @@ def main():
     st.markdown("<div class='main-header'>🀄 麻將神算子 Pro</div>", unsafe_allow_html=True)
     st.markdown("<div class='sub-header'>Powered by Gemini 1.5 Flash • Vibe Coding Edition</div>", unsafe_allow_html=True)
 
+'''
     # --- 🕵️ Debug 區塊 (縮排修正) ---
     with st.expander("🕵️ 偵測可用模型 (Debug)"):
         try:
@@ -134,6 +156,7 @@ def main():
         except Exception as e:
             st.error(f"無法列出模型: {e}")
     # ----------------------------------
+'''
 
     # 1. 取得 API Key (自動或手動)
     api_key = get_api_key()
