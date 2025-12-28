@@ -160,6 +160,7 @@ def main():
 
     # 1. 取得 API Key (自動或手動)
     api_key = get_api_key()
+  
 
     if not api_key:
         st.info("👈 請在側邊欄輸入 API Key，或設定 Secrets 以啟用自動化功能。")
