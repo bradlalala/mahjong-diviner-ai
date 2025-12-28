@@ -247,7 +247,7 @@ def page_tenpai_helper(api_key):
 
 def main():
     setup_page()
-    st.markdown("<div class='main-header'>🀄 AI 麻將神算</div>", unsafe_allow_html=True)
+    st.markdown("<div class='main-header'>🀄 AI 麻將神算子</div>", unsafe_allow_html=True)
 
     with st.sidebar:
         st.header("🔑 設定")
