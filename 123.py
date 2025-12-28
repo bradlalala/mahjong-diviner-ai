@@ -4,6 +4,13 @@ from PIL import Image
 import io
 import json
 
+import streamlit as st
+import google.generativeai as genai
+
+# === 新增這段檢查代碼 ===
+st.warning(f"目前使用的套件版本：{genai.__version__}")
+# ======================
+
 # 嘗試匯入 google.generativeai，如果沒安裝則提示
 try:
     import google.generativeai as genai
