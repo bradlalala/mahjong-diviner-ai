@@ -81,8 +81,7 @@ def analyze_mahjong(image, api_key):
     
     try:
         genai.configure(api_key=api_key)
-        # 使用最新的 Flash 模型
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel('gemini-1.5-pro')
         
         prompt = """
         Role: Professional Mahjong Strategist.
@@ -115,7 +114,7 @@ def analyze_mahjong(image, api_key):
         return {"error": f"AI 連線失敗: {error_msg}"}
 
 # ==========================================
-# 4. 主程式介面
+# 4. 主程式介面 (修正縮排版)
 # ==========================================
 
 def main():
@@ -123,15 +122,18 @@ def main():
     st.markdown("<div class='main-header'>🀄 麻將神算子 Pro</div>", unsafe_allow_html=True)
     st.markdown("<div class='sub-header'>Powered by Gemini 1.5 Flash • Vibe Coding Edition</div>", unsafe_allow_html=True)
 
-    # 在 st.title 下面加上這段
-with st.expander("🕵️ 偵測可用模型 (Debug)"):
-    try:
-        for m in genai.list_models():
-            if 'generateContent' in m.supported_generation_methods:
-                st.write(f"- {m.name}")
-    except Exception as e:
-        st.error(f"無法列出模型: {e}")
-        
+    # --- 🕵️ Debug 區塊 (縮排修正) ---
+    with st.expander("🕵️ 偵測可用模型 (Debug)"):
+        try:
+            st.info("正在詢問 Google 有哪些模型可以用...")
+            # 列出所有支援 generateContent 的模型
+            for m in genai.list_models():
+                if 'generateContent' in m.supported_generation_methods:
+                    st.write(f"- `{m.name}`")
+        except Exception as e:
+            st.error(f"無法列出模型: {e}")
+    # ----------------------------------
+
     # 1. 取得 API Key (自動或手動)
     api_key = get_api_key()
 
@@ -152,13 +154,13 @@ with st.expander("🕵️ 偵測可用模型 (Debug)"):
     if img_file:
         # 顯示預覽圖
         image = Image.open(img_file)
-        st.image(image, caption="分析目標", use_container_width=True)
+        st.image(image, caption="分析目標", width="stretch") # 順手修了 width 警告
         
         if st.button("🚀 開始神算 (Analyze)", type="primary", use_container_width=True):
-            # 使用 status 顯示進度，比 spinner 更帥
+            # 使用 status 顯示進度
             with st.status("🤖 AI 大腦運轉中...", expanded=True) as status:
                 st.write("🔍 正在識別牌面...")
-                time.sleep(0.5) # 模擬一點進度感
+                time.sleep(0.5)
                 st.write("🧮 計算聽牌機率與台數...")
                 
                 result = analyze_mahjong(image, api_key)
@@ -190,13 +192,14 @@ with st.expander("🕵️ 偵測可用模型 (Debug)"):
                             is_best = (s == strategies[0])
                             css = "strategy-box high-score" if is_best else "strategy-box"
                             badge = "🏆 推薦" if is_best else ""
-                            
+                            types_str = ', '.join(s.get('types', []))
+
                             st.markdown(f"""
                             <div class='{css}'>
                                 <div style="display: flex; justify_content: space-between; align-items: center;">
                                     <div>
                                         <h3 style="margin:0; color: #e74c3c;">🀄 聽 {s.get('tile')}</h3>
-                                        <small style="color: #666;">{', '.join(s.get('types', []))}</small>
+                                        <small style="color: #666;">{types_str}</small>
                                         <p style="margin: 5px 0 0 0; font-size: 0.9em; color: #555;">{s.get('comment')}</p>
                                     </div>
                                     <div style="text-align: right;">
