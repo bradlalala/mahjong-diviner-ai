@@ -119,7 +119,7 @@ def analyze_mahjong_image(image_input, api_key=None):
     # 4. 設定 Gemini API
     try:
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-1.5-flash') 
+        model = genai.GenerativeModel('gemini-1.5-flash-latest')
         
         # 策略分析 Prompt
         prompt = """
