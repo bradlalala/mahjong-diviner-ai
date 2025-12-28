@@ -64,7 +64,7 @@ def get_api_key():
     return api_key
 
 # ==========================================
-# 3. AI 邏輯 (Gemini 1.5 Flash)
+# 3. AI 邏輯 (Gemini 3.0 pro)
 # ==========================================
 
 def clean_json_string(json_str):
