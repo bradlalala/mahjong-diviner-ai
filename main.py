@@ -123,6 +123,15 @@ def main():
     st.markdown("<div class='main-header'>🀄 麻將神算子 Pro</div>", unsafe_allow_html=True)
     st.markdown("<div class='sub-header'>Powered by Gemini 1.5 Flash • Vibe Coding Edition</div>", unsafe_allow_html=True)
 
+    # 在 st.title 下面加上這段
+with st.expander("🕵️ 偵測可用模型 (Debug)"):
+    try:
+        for m in genai.list_models():
+            if 'generateContent' in m.supported_generation_methods:
+                st.write(f"- {m.name}")
+    except Exception as e:
+        st.error(f"無法列出模型: {e}")
+        
     # 1. 取得 API Key (自動或手動)
     api_key = get_api_key()
 
