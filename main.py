@@ -81,7 +81,8 @@ def analyze_mahjong(image, api_key):
     
     try:
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-1.5-pro')
+        # 直上 2025 年最強的型號！
+        model = genai.GenerativeModel('gemini-2.5-pro')
         
         prompt = """
         Role: Professional Mahjong Strategist.
