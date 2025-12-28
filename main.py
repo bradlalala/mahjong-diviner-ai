@@ -142,25 +142,11 @@ def analyze_mahjong(image, api_key):
 def main():
     setup_page()
     st.markdown("<div class='main-header'>🀄 麻將神算子 Pro</div>", unsafe_allow_html=True)
-    st.markdown("<div class='sub-header'>Powered by Gemini 1.5 Flash • Vibe Coding Edition</div>", unsafe_allow_html=True)
-
-'''
-    # --- 🕵️ Debug 區塊 (縮排修正) ---
-    with st.expander("🕵️ 偵測可用模型 (Debug)"):
-        try:
-            st.info("正在詢問 Google 有哪些模型可以用...")
-            # 列出所有支援 generateContent 的模型
-            for m in genai.list_models():
-                if 'generateContent' in m.supported_generation_methods:
-                    st.write(f"- `{m.name}`")
-        except Exception as e:
-            st.error(f"無法列出模型: {e}")
-    # ----------------------------------
-'''
+    # 這裡幫你把文字更新成 3.0 了
+    st.markdown("<div class='sub-header'>Powered by Gemini 3.0 Pro • Vibe Coding Edition</div>", unsafe_allow_html=True)
 
     # 1. 取得 API Key (自動或手動)
     api_key = get_api_key()
-  
 
     if not api_key:
         st.info("👈 請在側邊欄輸入 API Key，或設定 Secrets 以啟用自動化功能。")
