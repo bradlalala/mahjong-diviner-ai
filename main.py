@@ -82,7 +82,7 @@ def analyze_mahjong(image, api_key):
     try:
         genai.configure(api_key=api_key)
         # 直上 2025 年最強的型號！
-        model = genai.GenerativeModel('gemini-3-pro-preview')
+        model = genai.GenerativeModel('gemini-3-flash-preview')
         
         prompt = """
         Role: Grandmaster of Taiwanese 16-tile Mahjong (台灣十六張麻將神算子).
