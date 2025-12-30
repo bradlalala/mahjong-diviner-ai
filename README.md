@@ -18,7 +18,7 @@
 * 🇹🇼 **在地化優化**：針對台灣麻將規則（花牌不計入聽牌、白皮辨識等）進行 Prompt 優化。
 
 ## 🚀 線上體驗 (Demo)
-👉 **點擊立即使用：[麻將神算子 Live App](https://mahjong-diviner-ai.streamlit.app/)**
+👉 **點擊立即使用：[麻將神算子 Live App](https://mahjong-diviner-gemini.streamlit.app/)**
 
 *(註：若遇多人使用導致 API 忙碌，請稍候重試)*
 
