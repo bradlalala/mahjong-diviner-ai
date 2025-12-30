@@ -2,7 +2,7 @@
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://mahjong-diviner-ai.streamlit.app/)
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
-![Gemini AI](https://img.shields.io/badge/AI-Gemini%203.0%20Pro-orange)
+![Gemini AI](https://img.shields.io/badge/AI-Gemini%203.0%20Flash-yellow)
 
 > **「拍一下，這把聽什麼？」** —— 專為台灣十六張麻將設計的 AI 視覺辨識輔助工具。
 
@@ -63,7 +63,7 @@
 | 挑戰 (Challenge) | 解決方案 (Solution) |
 | :--- | :--- |
 | **☁️ 部署環境 404** | Streamlit Cloud 預設套件過舊。我們透過 `requirements.txt` 強制指定 `google-generativeai==0.8.3` 解決相容性問題。 |
-| **⚡ 模型版本迭代** | 舊版 1.5 Flash 偶有誤判。透過 `genai.list_models()` 偵測，我們成功搶先部署了最新的 **Gemini 3.0 Pro Preview** 模型。 |
+| **⚡ 模型版本迭代** | 舊版 1.5 Flash 偶有誤判。透過 `genai.list_models()` 偵測，我們成功搶先部署了最新的 **Gemini 3.0 Flash Preview** 模型。 |
 | **🧠 AI 幻覺** | 初期 AI 誤用日本麻將規則。我們導入 **思維鏈 (Chain of Thought)** Prompt，強制 AI 先計算張數（16 vs 17）再進行策略建議。 |
 
 ## 👥 製作團隊 (The Team)
